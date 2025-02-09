@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+:root{
+    --std-br: 8px;
+}
