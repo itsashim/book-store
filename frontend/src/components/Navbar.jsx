@@ -60,7 +60,9 @@ function Navbar() {
                     <CiHeart className="text-2xl"/>
                     <div className="relative">
                         <span className="absolute flex items-center justify-center top-[-11px] left-[10px] size-5 rounded-full bg-amber-500 ">{cartLen}</span>
-                    <CiShoppingCart className="text-2xl"/>
+                        <Link to="/cart">
+                            <CiShoppingCart className="text-2xl"/>
+                        </Link>
                     </div>
                 </div>
             </div>

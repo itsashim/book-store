@@ -52,8 +52,6 @@ function TopSellers() {
             spaceBetween={50}
             slidesPerView={3}
             thumbs
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
             >
             {books.map((book,index)=> 
             

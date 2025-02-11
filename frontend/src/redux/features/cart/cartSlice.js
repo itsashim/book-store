@@ -29,9 +29,30 @@ export const cartSlice = createSlice({
                     timer: 1500
                 });
             }
+        },
+        removeFromCart: (state,action)=>{
+            state.cartItems = state.cartItems.filter((item) => item._id !== action.payload._id);
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Removed Successfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            console.log(state.cartItems)
+        },
+        clearCart: (state)=>{
+            state.cartItems = [];
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Removed Successfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
     }
 });
 
-export const {addToCart} = cartSlice.actions;
+export const {addToCart,removeFromCart,clearCart} = cartSlice.actions;
 export default cartSlice.reducer; 
