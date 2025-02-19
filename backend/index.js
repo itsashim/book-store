@@ -5,6 +5,7 @@ import booksRoute from "./src/books/book.route.js";
 import cors from "cors"
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 configDotenv();
 const port = 3000;
@@ -13,13 +14,13 @@ const port = 3000;
 app.use(booksRoute);
 
 
+app.get("/",(req,res)=>{
+    console.log("hello")
+    res.send("Hello");
+})  
+
 async function main(){
     await mongoose.connect(process.env.DB_URL);
-
-    app.get("/",(req,res)=>{
-        console.log("hello")
-        res.send("Hello");
-    })  
 }
 
 main().then(console.log("Mongodb successfully connected!")).catch(err => console.log(err));

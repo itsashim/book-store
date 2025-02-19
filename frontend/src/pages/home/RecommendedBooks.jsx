@@ -1,4 +1,4 @@
-import { useEffect, useState,} from "react";
+// import { useEffect, useState,} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -7,28 +7,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import BookCard from "../books/BookCard";
+import { useGetAllBooksQuery } from "../../redux/features/books/booksApi";
 
 
 function RecommendedBooks() {
-    const [books,setBooks] = useState([]);
 
-    useEffect(()=> {
-        const fetchData = async ()=>{
-
-            try{
-                const res = await fetch("blog.json");
-                const data = await res.json();
-                const recommend =  data.slice(8);
-                    setBooks(recommend);
-                
-            }catch(err){
-                console.log(err)
-            }
-        }
-        fetchData();
-    },[]);
-
-
+    const {data:books = []} = useGetAllBooksQuery();
+    const bookData = books.data;
+    console.log(bookData, "Hello");
     return (
         <div className="px-8">
             <h2 className="text-5xl font-bold">Recommended for you</h2>
@@ -40,12 +26,10 @@ function RecommendedBooks() {
             slidesPerView={3}
             thumbs
             >
-            {books.map((book,index)=> 
-            
+            {bookData && bookData.map((book,index)=>             
                 <SwiperSlide key={index}>
                     <BookCard book={book}/>
                 </SwiperSlide>
-
             )}
             </Swiper>
         </div>

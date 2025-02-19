@@ -1,4 +1,4 @@
-import { useEffect, useState,} from "react";
+import { useState,} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -7,34 +7,18 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import BookCard from "../books/BookCard";
+import { useGetAllBooksQuery } from "../../redux/features/books/booksApi";
 
 
 function TopSellers() {
     const [curGenre,setCurGenre] = useState("");
     const genres = ['Choose a genre','Business','Fiction','Horror','Adventure','Marketing'];
-    const [books,setBooks] = useState([]);
 
-    useEffect(()=> {
-        const fetchData = async ()=>{
+    const {data:books = []} = useGetAllBooksQuery();
+    const bookData = books.data;
+    const filtered = curGenre == "Choose a genre" || curGenre == ""? bookData : bookData?.filter((book)=> book.category.toLowerCase() == curGenre.toLowerCase())
 
-            try{
-                const res = await fetch("blog.json");
-                const data = await res.json();
-                const filtered = data.filter((book)=> book.category.toLowerCase() == curGenre.toLowerCase())
-                if(curGenre === "" || curGenre == "Choose a genre"){
-                    setBooks(data);
-                }else{
-                    setBooks(filtered);
-                }
-                
-            }catch(err){
-                console.log(err)
-            }
-        }
-        fetchData();
-    },[curGenre]);
-
-
+    console.log(bookData,"New");
     return (
         <div className="px-8">
             <h2 className="text-5xl font-bold">Top Sellers</h2>
@@ -53,8 +37,7 @@ function TopSellers() {
             slidesPerView={3}
             thumbs
             >
-            {books.map((book,index)=> 
-            
+            {filtered?.map((book,index)=> 
                 <SwiperSlide key={index}>
                     <BookCard book={book}/>
                 </SwiperSlide>

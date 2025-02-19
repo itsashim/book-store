@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { getUrl } from "../../utils/getImageUrl";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
+import { Link } from "react-router-dom";
 
 function BookCard({book}) {
     const dispatch = useDispatch()
@@ -28,10 +29,10 @@ function BookCard({book}) {
                     </div>
 
                     <div>
-                    <a href="/"
+                    <Link to={`/book/${book._id}`}
                         ><h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
                         {book.title}
-                        </h3></a>
+                        </h3></Link>
                     <p className="text-gray-600 mb-5">{ book.description.length > 80 ? `${book.description.slice(0,80)}...` : book.description }</p>
                     <p className="font-medium mb-5">
                         {book.newPrice} <span className="line-through font-normal ml-2">{book.oldPrice}</span>
@@ -49,6 +50,7 @@ function BookCard({book}) {
 
     BookCard.propTypes = {
         book: PropTypes.shape({
+            _id: PropTypes.number,
             title: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
             oldPrice: PropTypes.number.isRequired,
