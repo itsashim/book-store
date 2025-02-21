@@ -5,7 +5,17 @@ import booksRoute from "./src/books/book.route.js";
 import cors from "cors"
 const app = express();
 app.use(express.json());
-app.use(cors())
+
+app.use((req, res, next) => {
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    next();
+});
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}))
 
 configDotenv();
 const port = 3000;
@@ -25,6 +35,6 @@ async function main(){
 
 main().then(console.log("Mongodb successfully connected!")).catch(err => console.log(err));
 
-app.listen(port,(req,res)=>{
+app.listen(port,()=>{
     console.log("server is running in",port);
 })

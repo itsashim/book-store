@@ -7,20 +7,37 @@ import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import  {useAuth } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 
 
 
 function Navbar() {
-    const currentUser = false;
+    const { currentUser,logoutUser } = useAuth();
     const [isOpenDropdown, SetIsOpenDropdown] = useState(false);
     const navigationDropdown = [
         {name: "Dashboard",link:"/dashboard"},
         {name: "Orders",link:"/orders"},
         {name: "Cart Page",link:"/cart"},
-        {name: "Check Out",link:"/check-out"}
+        {name: "Check Out",link:"/checkout"}
     ]
     const cartLen = useSelector((state) => state.cart.cartItems.length)
+
+    async function handleLogout(){
+        try{
+            await logoutUser();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Logged Out",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return (
         <header className="py-5.5 px-7">
@@ -52,6 +69,9 @@ function Navbar() {
                                         <Link onClick={()=>SetIsOpenDropdown(false)} to={child.link}>{child.name}</Link>
                                     </li>
                                 })}
+                                <li className="p-2 hover:bg-gray-400">
+                                    <button onClick={()=> handleLogout()}>Logout</button>
+                                </li>
                             </ul>
                         </div>//
                                     }

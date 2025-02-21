@@ -18,7 +18,6 @@ function TopSellers() {
     const bookData = books.data;
     const filtered = curGenre == "Choose a genre" || curGenre == ""? bookData : bookData?.filter((book)=> book.category.toLowerCase() == curGenre.toLowerCase())
 
-    console.log(bookData,"New");
     return (
         <div className="px-8">
             <h2 className="text-5xl font-bold">Top Sellers</h2>

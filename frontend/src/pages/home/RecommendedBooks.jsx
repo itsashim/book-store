@@ -14,7 +14,6 @@ function RecommendedBooks() {
 
     const {data:books = []} = useGetAllBooksQuery();
     const bookData = books.data;
-    console.log(bookData, "Hello");
     return (
         <div className="px-8">
             <h2 className="text-5xl font-bold">Recommended for you</h2>

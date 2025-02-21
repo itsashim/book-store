@@ -50,7 +50,7 @@ function BookCard({book}) {
 
     BookCard.propTypes = {
         book: PropTypes.shape({
-            _id: PropTypes.number,
+            _id: PropTypes.string,
             title: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
             oldPrice: PropTypes.number.isRequired,

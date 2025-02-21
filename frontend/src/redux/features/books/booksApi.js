@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { getBaseUrl } from '../../../utils/getBaseUrl'
 
 
-const baseQuery = fetchBaseQuery({baseUrl:`${getBaseUrl()}`})
+const baseQuery = fetchBaseQuery({baseUrl:`${getBaseUrl()}`,credentials: 'include'})
 
 const booksApi = createApi({
     reducerPath: "booksAPi",
