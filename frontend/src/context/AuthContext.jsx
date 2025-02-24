@@ -12,10 +12,11 @@ export const useAuth = () => {
  export const AuthProvider = ({children})=>{
 
     const [currentUser, setCurrentUser] = useState("");
+    const [isLoading,setIsLoading] = useState(true);
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user)
-            console.log(user)
+            setIsLoading(false);
             if(user){
                 // const {email,displayName,photoURL} = user;
                 // const userData = {
@@ -60,7 +61,8 @@ export const useAuth = () => {
         signInUser,
         currentUser,
         signInWithGoogle,
-        logoutUser
+        logoutUser,
+        isLoading,
     }
 
     return <AuthContext.Provider value={value}>

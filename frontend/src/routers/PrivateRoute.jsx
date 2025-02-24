@@ -3,8 +3,8 @@ import { useAuth } from "../context/AuthContext"
 
 
 function PrivateRoute({children}) {
-    const {currentUser} =  useAuth();
-    console.log(currentUser,"This is private route");
+    const {currentUser,isLoading} =  useAuth();
+    if(isLoading) return <h1>Loading...</h1>
     if(currentUser){
         return children
     }else{

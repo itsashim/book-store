@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { configDotenv } from "dotenv";
 import booksRoute from "./src/books/book.route.js";
+import ordersRoute from "./src/orders/order.route.js"
 import cors from "cors"
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ const port = 3000;
 
 // Post a Book
 app.use(booksRoute);
+app.use("/api/orders",ordersRoute);
 
 
 app.get("/",(req,res)=>{
