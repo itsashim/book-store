@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/home/Home";
 import Login from "../components/Login";
@@ -8,6 +8,8 @@ import Checkout from "../pages/books/Checkout";
 import BookDetails from "../pages/books/BookDetails";
 import PrivateRoute from "./PrivateRoute";
 import Orders from "../pages/orders/Orders";
+import AdminLogin from "../admin/auth/AdminLogin";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +46,22 @@ const router = createBrowserRouter([
             element: <BookDetails/>
         }
     ]
+    },
+    {
+        path: "/admin/login",
+        element: <AdminLogin/>
+    },
+    {
+        path: "/dashboard",
+        element: <AdminRoute>Dashboard <Outlet/></AdminRoute>,
+        children: [{
+                path: "books",
+                element: <div>All books</div>
+            },
+            {
+                path: "add-book",
+                element: <div>All books</div>
+            },]
     }
 ])
 

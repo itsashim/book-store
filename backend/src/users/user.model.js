@@ -1,32 +1,36 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
-    title: {
+    username: {
         type: String,
-        required: true
+        unique: true,
+        required: true,
+        trim: true
     },
-    description: {
+    password: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minlength: 6,
     },
-    category: {
+    role: {
         type: String,
-        required: true
-    },
-    trending: Boolean,
-    coverImage: {
-        type: String,
-        required: true
-    },
-    oldPrice: Number,
-    newPrice: Number,
-    createdAt: {
-        type: Date,
-        default: Date.now
+        enum: ['admin','user'],
+        required: true 
     }
 },{
-    timeStamps: true
+    timestamps: true
 })
 const User = mongoose.model('User', userSchema);
+
+userSchema.pre("save", async function(next){
+    if(!this.isModified("password")) return next();
+    try{
+        this.password = await bcrypt.hash(this.password,salt);
+    }catch(err){
+        next(err);
+    }
+})
 
 export default User;

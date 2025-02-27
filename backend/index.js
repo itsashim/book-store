@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import { configDotenv } from "dotenv";
 import booksRoute from "./src/books/book.route.js";
 import ordersRoute from "./src/orders/order.route.js"
+import userRoute from "./src/users/user.route.js"
+import adminRoute from "./src/stats/admin.stats.js";
 import cors from "cors"
 const app = express();
 app.use(express.json());
@@ -24,6 +26,8 @@ const port = 3000;
 // Post a Book
 app.use(booksRoute);
 app.use("/api/orders",ordersRoute);
+app.use("/auth",userRoute);
+app.use("api/admin",adminRoute);
 
 
 app.get("/",(req,res)=>{
